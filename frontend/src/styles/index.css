@@ -1,0 +1,182 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── CSS Variables ─────────────────────────────────────────────────────────── */
+:root {
+  --mint-primary:   #10b981;
+  --mint-dark:      #059669;
+  --mint-light:     #d1fae5;
+  --mint-surface:   #ecfdf5;
+  --clay-radius:    20px;
+  --clay-shadow:    8px 8px 0px rgba(5,150,105,0.15), inset 0 1px 0 rgba(255,255,255,0.6);
+  --glass-bg:       rgba(255,255,255,0.7);
+  --glass-border:   rgba(255,255,255,0.5);
+  --text-primary:   #064e3b;
+  --text-secondary: #374151;
+  --text-muted:     #6b7280;
+}
+
+/* ── Base ──────────────────────────────────────────────────────────────────── */
+* { box-sizing: border-box; }
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: #f0fdf9;
+  color: var(--text-primary);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Claymorphism Components ───────────────────────────────────────────────── */
+.clay-card {
+  background: var(--glass-bg);
+  border: 1.5px solid var(--glass-border);
+  border-radius: var(--clay-radius);
+  box-shadow: var(--clay-shadow);
+  backdrop-filter: blur(12px);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.clay-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 12px 12px 0px rgba(5,150,105,0.12), inset 0 1px 0 rgba(255,255,255,0.7);
+}
+
+.clay-button {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  border-radius: 14px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  padding: 0.65rem 1.5rem;
+  border: none;
+  box-shadow: 4px 4px 0px rgba(5,150,105,0.3), inset 0 1px 0 rgba(255,255,255,0.3);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  letter-spacing: 0.01em;
+}
+.clay-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 6px 6px 0px rgba(5,150,105,0.25), inset 0 1px 0 rgba(255,255,255,0.4);
+}
+.clay-button:active {
+  transform: translateY(1px);
+  box-shadow: 2px 2px 0px rgba(5,150,105,0.3);
+}
+.clay-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.clay-input {
+  background: rgba(255,255,255,0.8);
+  border: 2px solid rgba(16,185,129,0.2);
+  border-radius: 14px;
+  padding: 0.75rem 1rem;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  transition: border-color 0.2s, box-shadow 0.2s;
+  width: 100%;
+  outline: none;
+  box-shadow: inset 0 2px 4px rgba(5,150,105,0.05);
+}
+.clay-input:focus {
+  border-color: var(--mint-primary);
+  box-shadow: 0 0 0 3px rgba(16,185,129,0.15), inset 0 2px 4px rgba(5,150,105,0.05);
+}
+
+/* ── Scrollbar ─────────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #f0fdf9; }
+::-webkit-scrollbar-thumb { background: #6ee7b7; border-radius: 99px; }
+
+/* ── Badge variants ────────────────────────────────────────────────────────── */
+.badge-verified  { background: #d1fae5; color: #065f46; }
+.badge-pending   { background: #fef9c3; color: #713f12; }
+.badge-rejected  { background: #fee2e2; color: #991b1b; }
+.badge-revoked   { background: #f3f4f6; color: #374151; }
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 99px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: capitalize;
+}
+
+/* ── Animations ────────────────────────────────────────────────────────────── */
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+.skeleton {
+  background: linear-gradient(90deg, #d1fae5 25%, #a7f3d0 50%, #d1fae5 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 10px;
+}
+
+/* ── Page transitions ──────────────────────────────────────────────────────── */
+.page-enter  { animation: fadeIn 0.35s ease-out; }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Sidebar ───────────────────────────────────────────────────────────────── */
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #374151;
+  transition: all 0.18s ease;
+  cursor: pointer;
+}
+.sidebar-link:hover {
+  background: rgba(16,185,129,0.1);
+  color: #059669;
+}
+.sidebar-link.active {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  box-shadow: 4px 4px 0px rgba(5,150,105,0.2);
+}
+
+/* ── Dashboard grid ────────────────────────────────────────────────────────── */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.25rem;
+}
+
+/* ── Trust score ring ──────────────────────────────────────────────────────── */
+.trust-ring {
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+.trust-ring svg { transform: rotate(-90deg); }
+.trust-ring .score-label {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1rem;
+  color: #059669;
+}
