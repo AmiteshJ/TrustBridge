@@ -85,12 +85,8 @@ const credentialSchema = new mongoose.Schema(
     issuerNotes: { type: String, default: "" },
 
     // Metadata from document
-    metadata: {
-      institution: { type: String, default: "" },
-      courseOrPosition: { type: String, default: "" },
-      grade: { type: String, default: "" },
-      completionDate: { type: String, default: "" },
-    },
+    // Flexible metadata — fields vary by category (education, finance, identity, etc.)
+    metadata: { type: Object, default: {} },
   },
   {
     timestamps: true,
