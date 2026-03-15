@@ -304,7 +304,7 @@ export default function UserDashboard() {
           .cred-row:hover { background:rgba(45,206,122,0.06) !important; transform:translateX(4px); }
         `}</style>
 
-        <div style={{ maxWidth: 1100, margin: "0 auto", padding: "4px 0" }}>
+        <div style={{ width: "100%", padding: "4px 0" }}>
 
           {/* ── HERO BANNER ────────────────────────────────────────────── */}
           <FadeUp>
@@ -376,7 +376,7 @@ export default function UserDashboard() {
           </FadeUp>
 
           {/* ── MAIN GRID ──────────────────────────────────────────────── */}
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 380px", gap: 20 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 360px", gap: 20 }} className="dash-main-grid">
 
             {/* LEFT — recent credentials */}
             <FadeUp delay={100}>
@@ -692,6 +692,9 @@ export default function UserDashboard() {
         </div>
 
         <style>{`
+          @media (max-width:1100px) {
+            .dash-main-grid { grid-template-columns:1fr !important; }
+          }
           @media (max-width:900px) {
             .stats-responsive { grid-template-columns:repeat(2,1fr) !important; }
           }
