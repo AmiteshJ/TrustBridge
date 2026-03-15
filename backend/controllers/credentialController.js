@@ -16,7 +16,16 @@ exports.uploadCredential = async (req, res) => {
       return res.status(400).json({ success: false, message: "Document file is required" });
     }
 
-    const { title, description, category, institution, courseOrPosition, grade, completionDate } = req.body;
+    const { title, description, category } = req.body;
+
+    // Dynamically extract metadata — all non-core fields become metadata
+    const coreFields = new Set(["title", "description", "category"]);
+    const metadata = {};
+    Object.entries(req.body).forEach(([k, v]) => {
+      if (!coreFields.has(k) && v !== undefined && String(v).trim() !== "") {
+        metadata[k] = String(v).trim();
+      }
+    });
 
     // Generate document hash from URL for fraud detection
     const documentHash = crypto
@@ -32,7 +41,7 @@ exports.uploadCredential = async (req, res) => {
       documentUrl: req.file.path,
       documentPublicId: req.file.filename,
       documentHash,
-      metadata: { institution, courseOrPosition, grade, completionDate },
+      metadata,
     });
 
     // Generate verification URL + QR code
@@ -169,11 +178,11 @@ exports.verifyCredential = async (req, res) => {
         expiresAt: credential.expiresAt,
         issuer: credential.issuer
           ? {
-              name: credential.issuer.name,
-              organization: credential.issuer.organization,
-              trustLevel: credential.issuer.issuerTrustLabel,
-              reputationScore: credential.issuer.issuerProfile?.reputationScore,
-            }
+            name: credential.issuer.name,
+            organization: credential.issuer.organization,
+            trustLevel: credential.issuer.issuerTrustLabel,
+            reputationScore: credential.issuer.issuerProfile?.reputationScore,
+          }
           : null,
         owner: {
           name: credential.owner.name,
