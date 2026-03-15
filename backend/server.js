@@ -77,7 +77,7 @@ app.use("/api/credentials", credentialRoutes);
 app.use("/api/issuer", issuerRoutes);
 app.use("/api/verifier", verifierRoutes);
 app.use("/api/digilocker", digilockerRoutes);
-app.use("/api/ai", aiRoutes);
+app.use("/api/ai/", aiRoutes);
 app.use("/api/radar", radarRoutes);
 
 // Health check
