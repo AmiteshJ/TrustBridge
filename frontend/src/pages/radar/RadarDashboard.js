@@ -246,7 +246,7 @@ export default function RadarDashboard() {
     });
 
     /* Socket.io real-time */
-    const socket = io(process.env.REACT_APP_SOCKET_URL || "http://localhost:5000");
+    const socket = io(process.env.REACT_APP_SOCKET_URL || process.env.REACT_APP_API_URL);
     socketRef.current = socket;
     socket.emit("join:radar");
     socket.on("activity:new", (evt) => {
