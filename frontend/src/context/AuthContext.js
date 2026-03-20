@@ -3,7 +3,7 @@
  * Global auth state management
  */
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { authAPI } from "../services/api";
+
 
 const AuthContext = createContext(null);
 
@@ -27,6 +27,10 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
+    // Clear AI chat history for this user on logout
+    if (user?._id) {
+      localStorage.removeItem(`tb_ai_chat_${user._id}`);
+    }
     localStorage.removeItem("tb_token");
     localStorage.removeItem("tb_user");
     setUser(null);
